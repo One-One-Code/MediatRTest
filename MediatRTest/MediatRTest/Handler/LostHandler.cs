@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace MediatRTest.Handler
 {
     /// <summary>
-    /// 同步事件
+    /// 同步事件，无返回结果
     /// </summary>
     public class LostHandler : RequestHandler<LostMessage>
     {

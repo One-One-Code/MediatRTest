@@ -13,7 +13,7 @@ namespace MediatRTest.Handler
     {
         public Task Handle(OrderPaySuccessMessage notification, CancellationToken cancellationToken)
         {
-            Console.WriteLine($"StoreUpdateHandler-{Thread.CurrentThread.ManagedThreadId}     ------        {notification.OrderId}");
+            Console.WriteLine($"{DateTime.Now.ToString()}StoreUpdateHandler-{Thread.CurrentThread.ManagedThreadId}     ------        {notification.OrderId}");
             return Task.CompletedTask;
         }
     }

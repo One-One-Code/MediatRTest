@@ -21,16 +21,21 @@ namespace MediatRTest.Services
             _a = a;
         }
 
-        public override Task<GetUserStatusOutput> GetUserStatus(GetUserStatusInput request, ServerCallContext context)
+        public override async Task<GetUserStatusOutput> GetUserStatus(GetUserStatusInput request, ServerCallContext context)
         {
             if (!string.IsNullOrEmpty(request.Token))
             {
-                Console.WriteLine($"入口-{Thread.CurrentThread.ManagedThreadId}     ------        {request.Token}");
-                mediator.Send(new RegisterSuccessMessage() { Id = request.Token });
-                mediator.Publish(new OrderPaySuccessMessage { OrderId = "11222" });
-                return Task.FromResult(new GetUserStatusOutput { IsNormal = true });
+                Console.WriteLine($"{DateTime.Now.ToString()}入口-{Thread.CurrentThread.ManagedThreadId}     ------        {request.Token}");
+                await mediator.Send(new RegisterSuccessMessage() { Id = request.Token });
+                await mediator.Publish(new OrderPaySuccessMessage { OrderId = "11222" });
+                var meetings=  mediator.CreateStream(new StreamMessage());
+                await foreach (var item in  meetings)
+                {
+                    Console.WriteLine($"{Thread.CurrentThread.ManagedThreadId}     ------        {item.ToString()}");
+                }
+                return new GetUserStatusOutput { IsNormal = true };
             }
-            return Task.FromResult(new GetUserStatusOutput { IsNormal = false });
+            return new GetUserStatusOutput { IsNormal = false };
         }
 
         public override Task<LoginOutput> Login(LoginInput request, ServerCallContext context)
