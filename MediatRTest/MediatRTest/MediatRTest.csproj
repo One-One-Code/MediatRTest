@@ -6,9 +6,13 @@
 
   <ItemGroup>
     <Compile Remove="log\**" />
+    <Compile Remove="Models\**" />
     <Content Remove="log\**" />
+    <Content Remove="Models\**" />
     <EmbeddedResource Remove="log\**" />
+    <EmbeddedResource Remove="Models\**" />
     <None Remove="log\**" />
+    <None Remove="Models\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,6 +32,10 @@
     <Content Update="logger.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
 
 </Project>

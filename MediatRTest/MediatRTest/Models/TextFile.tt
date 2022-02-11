@@ -1,0 +1,36 @@
+﻿<#@ template language="C#" hostspecific="true" #> 
+
+<#@ include file="DbHelper.ttinclude"  #>
+<#@ include file="Manager.ttinclude"#> 
+<# var manager = Manager.Create(Host, GenerationEnvironment); #>  
+<# manager.StartNewFile(config.TableName+".cs"); #>  
+
+using System;
+namespace MediatRTest.Models
+{
+    public class <#=config.TableName#>
+    {
+        <# foreach(DbColumn column in DbHelper.GetDbColumns(config.ConnectionString, config.DbDatabase, config.TableName)){#>
+
+        /// <summary>
+        /// <#= column.Remark  #>
+        /// </summary>
+        public <#= column.CSharpType#><# if(column.CommonType.IsValueType && column.IsNullable){#>?<#}#> <#=column.ColumnName#> { get; set; }
+        <#}#> 
+      
+    }
+
+
+}
+<# manager.EndBlock(); #>  
+<# manager.Process(true); #> 
+    <#+
+    public class config
+    {
+        //修改要生成的数据库表
+        public static readonly string ConnectionString="Server=192.168.0.125;User ID=lbbc_app;Password=Xgzdzy731hgYMMBZ;Database=lbbc;";
+        public static readonly string DbDatabase="lbbc";
+        public static readonly string TableName="ec_order_bt";
+    }
+#>
+
