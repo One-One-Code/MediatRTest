@@ -6,13 +6,9 @@
 
   <ItemGroup>
     <Compile Remove="log\**" />
-    <Compile Remove="Models\**" />
     <Content Remove="log\**" />
-    <Content Remove="Models\**" />
     <EmbeddedResource Remove="log\**" />
-    <EmbeddedResource Remove="Models\**" />
     <None Remove="log\**" />
-    <None Remove="Models\**" />
   </ItemGroup>
 
   <ItemGroup>
